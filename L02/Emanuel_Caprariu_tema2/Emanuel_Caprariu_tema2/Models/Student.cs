@@ -17,7 +17,7 @@ namespace Emanuel_Caprariu_tema2.Models
         public string Facultate { get; set; }
         public int AnStudiu { get; set; }
 
-        
-        
+       
+
     }
 }

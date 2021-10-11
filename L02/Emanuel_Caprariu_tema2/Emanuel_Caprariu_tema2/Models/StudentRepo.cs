@@ -11,7 +11,8 @@ namespace Emanuel_Caprariu_tema2.Models
 
         }
         public DbSet<Student> Students { get; set; }
-  
-       
+        
+
+
     }
 }

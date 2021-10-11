@@ -14,7 +14,7 @@ namespace Emanuel_Caprariu_tema2.Controllers
     public class StudentsController : ControllerBase
     {
         private  StudentRepo _context;
-        private List<Student> listOfStudents = new List<Student>() {
+        public List<Student> listOfStudents = new List<Student>() {
            new Student{IdStudent=1,Nume="Caprariu",Prenume="Manu",Facultate="AC",AnStudiu=4},
            new Student{IdStudent=2,Nume="Vasi",Prenume="Ovidiu",Facultate="ETC",AnStudiu=4},
            new Student{IdStudent=3,Nume="Belu",Prenume="Alex",Facultate="AC",AnStudiu=4},
@@ -25,8 +25,9 @@ namespace Emanuel_Caprariu_tema2.Controllers
         public StudentsController(StudentRepo context)
         {
             _context = context;
-            //_context.Students.Append(
-            //    new Student { IdStudent = 1, Nume = "Caprariu", Prenume = "Manu", Facultate = "AC", AnStudiu = 4 }              
+            
+            //_context.Students.Add(
+            //    new Student { IdStudent = 1, Nume = "Caprariu", Prenume = "Manu", Facultate = "AC", AnStudiu = 4 }
             //    );
         }
 
@@ -34,7 +35,7 @@ namespace Emanuel_Caprariu_tema2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-           
+          
             return await _context.Students.ToListAsync();
         }
 
