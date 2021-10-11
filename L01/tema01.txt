@@ -1,0 +1,2 @@
+Aplicatia cloud - de tipul Software as a service ce am folosit personal este Google Drive.
+Pe aceasta aplicatie poti sa iti incarci datele personale in cloud, private/publice/sau doar cine are acces la link, eventual putem vizualiza datele altora daca avem access la drive-ul respectiv. De asemenea exista si o limitare de stocare de spatiu( aprox 15 GB) in varianta free. Google Drive este o aplicatie usor de folosit, autosugestiva( adica structura fisierelor si editarea lor este la fel ca in file explorer.
