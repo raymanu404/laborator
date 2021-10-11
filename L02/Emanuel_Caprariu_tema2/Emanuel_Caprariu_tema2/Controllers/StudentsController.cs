@@ -16,16 +16,18 @@ namespace Emanuel_Caprariu_tema2.Controllers
         private  StudentRepo _context;
         private List<Student> listOfStudents = new List<Student>() {
            new Student{IdStudent=1,Nume="Caprariu",Prenume="Manu",Facultate="AC",AnStudiu=4},
-           new Student{IdStudent=1,Nume="Vasi",Prenume="Ovidiu",Facultate="ETC",AnStudiu=4},
-           new Student{IdStudent=1,Nume="Belu",Prenume="Alex",Facultate="AC",AnStudiu=4},
-           new Student{IdStudent=1,Nume="Bado",Prenume="Fetitza",Facultate="FMI",AnStudiu=4},
-           new Student{IdStudent=1,Nume="Olariu",Prenume="Lucy",Facultate="MPT",AnStudiu=4},
+           new Student{IdStudent=2,Nume="Vasi",Prenume="Ovidiu",Facultate="ETC",AnStudiu=4},
+           new Student{IdStudent=3,Nume="Belu",Prenume="Alex",Facultate="AC",AnStudiu=4},
+           new Student{IdStudent=4,Nume="Bado",Prenume="Fetitza",Facultate="FMI",AnStudiu=4},
+           new Student{IdStudent=5,Nume="Olariu",Prenume="Lucy",Facultate="MPT",AnStudiu=4},
         };
 
         public StudentsController(StudentRepo context)
         {
             _context = context;
-            _context.Students.Add(listOfStudents);
+            //_context.Students.Append(
+            //    new Student { IdStudent = 1, Nume = "Caprariu", Prenume = "Manu", Facultate = "AC", AnStudiu = 4 }              
+            //    );
         }
 
         // GET: api/Students

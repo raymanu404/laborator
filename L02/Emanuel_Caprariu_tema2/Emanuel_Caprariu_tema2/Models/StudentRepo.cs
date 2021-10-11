@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Emanuel_Caprariu_tema2.Models
@@ -12,7 +11,7 @@ namespace Emanuel_Caprariu_tema2.Models
 
         }
         public DbSet<Student> Students { get; set; }
-        public static List<Student> Students1 { get; set; }
+  
        
     }
 }
