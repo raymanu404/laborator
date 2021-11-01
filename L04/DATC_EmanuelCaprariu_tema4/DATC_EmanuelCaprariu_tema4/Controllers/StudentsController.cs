@@ -33,7 +33,13 @@ namespace DATC_EmanuelCaprariu_tema4.Controllers
         {
             await _studentRepository.CreateStudent(student);
         }
+        [HttpDelete]
+        public async Task Delete([FromBody] Object obj)
+        {
+          
+            await _studentRepository.DeleteStudent(JObject.Parse(obj.ToString())["partitionKey"].ToString(), JObject.Parse(obj.ToString())["rowKey"].ToString());
+        }
+       
 
-      
     }
 }

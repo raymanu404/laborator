@@ -15,32 +15,17 @@ namespace DATC_EmanuelCaprariu_tema4.Repository
     public class StudentsRepository : IStudentRepository
     {
         private CloudTableClient _tableClient;
-        private CloudTable _studentsTable;
+        private CloudTable studentTable;
         private string _connectionString;
-        const string StorageAcountName = "datcemanuelcaprariu";
-        const string StorageAcountKey = "K/eM6Qk4oEqa9LGIxRf1bh612gNPlAp0VdoZe4qz156HW8u1Jng9DkkX/1C6XokZry6OSeYJOAsCb80E3Z2yqQ==";
+      
         private async Task InitializeTable()
         {
             var account = CloudStorageAccount.Parse(_connectionString);
             _tableClient = account.CreateCloudTableClient();
-            _studentsTable = _tableClient.GetTableReference("Students");
-            await _studentsTable.CreateIfNotExistsAsync();
+            studentTable = _tableClient.GetTableReference("Students");
+            await studentTable.CreateIfNotExistsAsync();
         }
-        private async Task<CloudTable> GetTableAsync()
-        {
-            //Account  
-            CloudStorageAccount storageAccount = new CloudStorageAccount(
-                new StorageCredentials(StorageAcountName, StorageAcountKey), false);
-
-            //Client  
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-
-            //Table  
-            CloudTable table = tableClient.GetTableReference(this._studentsTable.Name);
-            await table.CreateIfNotExistsAsync();
-
-            return table;
-        }
+      
         public StudentsRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetValue(typeof(string), "AzureStorageConnectionString").ToString();
@@ -52,10 +37,56 @@ namespace DATC_EmanuelCaprariu_tema4.Repository
         public async Task CreateStudent(StudentEntity student)
         {
             var insertOperation = TableOperation.Insert(student);
-            await _studentsTable.ExecuteAsync(insertOperation);
+            await studentTable.ExecuteAsync(insertOperation);
+        }
+        public async Task<List<StudentEntity>> GetList(string partitionKey)
+        {
+          
+            //Query  
+            TableQuery<StudentEntity> query = new TableQuery<StudentEntity>()
+                                        .Where(TableQuery.GenerateFilterCondition("PartitionKey",
+                                                QueryComparisons.Equal, partitionKey));
+
+            List<StudentEntity> results = new List<StudentEntity>();
+            TableContinuationToken continuationToken = null;
+            do
+            {
+                TableQuerySegment<StudentEntity> queryResults =
+                    await studentTable.ExecuteQuerySegmentedAsync(query, continuationToken);
+
+                continuationToken = queryResults.ContinuationToken;
+
+                results.AddRange(queryResults.Results);
+
+            } while (continuationToken != null);
+
+            return results;
         }
 
-    
+        public async Task<StudentEntity> GetItem(string partitionKey, string rowKey)
+        { 
+
+            //Operation  
+            TableOperation operation = TableOperation.Retrieve<StudentEntity>(partitionKey, rowKey);
+
+            //Execute  
+            TableResult result = await studentTable.ExecuteAsync(operation);
+
+            return (StudentEntity)(dynamic)result.Result;
+        }      
+        public async Task DeleteStudent(string partitionKey, string rowKey)
+        {
+            //Item  
+           StudentEntity item = await GetItem(partitionKey, rowKey);
+
+            //Operation  
+            TableOperation operation = TableOperation.Delete(item);
+
+            //Execute  
+            await studentTable.ExecuteAsync(operation);
+        }
+
+ 
         public async Task<List<StudentEntity>> GetListOfStudents()
         {
             var students = new List<StudentEntity>();
@@ -63,7 +94,7 @@ namespace DATC_EmanuelCaprariu_tema4.Repository
             TableContinuationToken token = null;
             do
             {
-                TableQuerySegment<StudentEntity> resultSegment = await _studentsTable.ExecuteQuerySegmentedAsync(query, token);
+                TableQuerySegment<StudentEntity> resultSegment = await studentTable.ExecuteQuerySegmentedAsync(query, token);
                 token = resultSegment.ContinuationToken;
                 students.AddRange(resultSegment);
             } while (token != null);

@@ -30,28 +30,12 @@ namespace DATC_EmanuelCaprariu_tema4.Models
             this.An = an;
 
         }
-        //public StudentEntity(string storageAccount,string storageKey, string tableName)
-        //{
-        //    if (string.IsNullOrEmpty(storageAccount))
-        //        throw new ArgumentNullException("StorageAccount");
-
-        //    if (string.IsNullOrEmpty(storageKey))
-        //        throw new ArgumentNullException("StorageKey");
-
-        //    if (string.IsNullOrEmpty(tableName))
-        //        throw new ArgumentNullException("TableName");
-
-        //    this.StorageAccount = storageAccount;
-        //    this.StorageKey = storageKey;
-        //    this.TableName = tableName;
-        //}
+        
     
     public StudentEntity() { }
         public string Nume { get; set; }
         public string Facultate { get; set; }
         public int An { get; set; }
-        //public string StorageAccount { get; }
-        //public string StorageKey { get; }
-        //public string TableName { get; }
+       
     }
 }
