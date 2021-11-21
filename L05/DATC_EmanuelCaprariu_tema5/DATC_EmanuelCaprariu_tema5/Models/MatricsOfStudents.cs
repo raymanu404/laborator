@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
 
+
 namespace DATC_EmanuelCaprariu_tema5.Models
 {
     public class MatricsOfStudents: TableEntity
